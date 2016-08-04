@@ -1,0 +1,8 @@
+platform :ios, '7.0'
+
+target "AdDemo" do
+
+pod 'YYWebImage'
+pod 'Masonry'
+
+end
