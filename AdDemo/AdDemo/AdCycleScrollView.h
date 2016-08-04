@@ -10,7 +10,9 @@
 
 @protocol AdCycleScrollViewDelegate <NSObject>
 
+@optional
 -(void)AdCycleScrollViewClick:(NSInteger)index;
+-(void)AdCycleScrollViewScroll:(NSInteger)index;
 
 @end
 

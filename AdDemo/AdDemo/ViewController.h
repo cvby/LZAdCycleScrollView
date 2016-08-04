@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "AdCycleScrollView.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<AdCycleScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet AdCycleScrollView *AdScrollView;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @end
 

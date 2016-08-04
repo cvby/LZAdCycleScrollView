@@ -23,16 +23,25 @@
                                     <constraint firstAttribute="height" constant="128" id="Gbm-aH-Zvl"/>
                                 </constraints>
                             </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="e8k-cL-iIr">
+                                <rect key="frame" x="140" y="110" width="39" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="kXf-c7-Zcy"/>
+                                </constraints>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="e8k-cL-iIr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9e8-T0-7DZ"/>
                             <constraint firstAttribute="trailing" secondItem="aNZ-K8-Hdy" secondAttribute="trailing" id="CWa-Ls-v7d"/>
+                            <constraint firstItem="e8k-cL-iIr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="110" id="SbD-S0-2si"/>
                             <constraint firstItem="aNZ-K8-Hdy" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="cmL-YF-OQQ"/>
                             <constraint firstItem="aNZ-K8-Hdy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wCt-dS-JXJ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="AdScrollView" destination="aNZ-K8-Hdy" id="f40-IH-smL"/>
+                        <outlet property="pageControl" destination="e8k-cL-iIr" id="vyh-HP-O6f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

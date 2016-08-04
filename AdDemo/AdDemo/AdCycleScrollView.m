@@ -158,6 +158,7 @@
 }
 
 #pragma mark - 图片停止时,调用该函数使得滚动视图复用
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSLog(@"%f",self.contentOffset.x);
@@ -178,6 +179,10 @@
         {
             rightImageIndex = _imageLinkURL.count-1;
         }
+        if(self.addelegate&&[self.addelegate respondsToSelector:@selector(AdCycleScrollViewScroll:)])
+        {
+            [self.addelegate AdCycleScrollViewScroll:centerImageIndex];
+        }
     }
     else if(self.contentOffset.x >= kAdViewWidth * 2)
     {
@@ -195,6 +200,10 @@
         if (rightImageIndex == _imageLinkURL.count)
         {
             rightImageIndex = 0;
+        }
+        if(self.addelegate&&[self.addelegate respondsToSelector:@selector(AdCycleScrollViewScroll:)])
+        {
+            [self.addelegate AdCycleScrollViewScroll:centerImageIndex];
         }
     }
     else
