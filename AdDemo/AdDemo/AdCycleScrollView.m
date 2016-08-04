@@ -128,15 +128,9 @@
     self.pageControl.numberOfPages = _imageLinkURL.count;
     self.pageControl.currentPage = 0;
     
-    [_leftImageView cbd_setImageWithURL:imageLinkURL[leftImageIndex] placeholder:self.sPlaceImageName completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-        //
-    }];
-    [_centerImageView cbd_setImageWithURL:imageLinkURL[centerImageIndex] placeholder:self.sPlaceImageName completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-        //
-    }];
-    [_rightImageView cbd_setImageWithURL:imageLinkURL[rightImageIndex] placeholder:self.sPlaceImageName completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-        //
-    }];
+    [_leftImageView cbd_setImageWithURL:imageLinkURL[leftImageIndex] placeholder:self.sPlaceImageName completion:nil];
+    [_centerImageView cbd_setImageWithURL:imageLinkURL[centerImageIndex] placeholder:self.sPlaceImageName completion:nil];
+    [_rightImageView cbd_setImageWithURL:imageLinkURL[rightImageIndex] placeholder:self.sPlaceImageName completion:nil];
 }
 
 #pragma mark - 创建pageControl,指定其显示样式
@@ -161,7 +155,6 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"%f",self.contentOffset.x);
     if (self.contentOffset.x <= 0)
     {
         centerImageIndex = centerImageIndex - 1;
@@ -212,15 +205,9 @@
     }
     
     //换成YY
-    [_leftImageView cbd_setImageWithURL:_imageLinkURL[leftImageIndex] placeholder:self.sPlaceImageName completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-        //
-    }];
-    [_centerImageView cbd_setImageWithURL:_imageLinkURL[centerImageIndex] placeholder:self.sPlaceImageName completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-        //
-    }];
-    [_rightImageView cbd_setImageWithURL:_imageLinkURL[rightImageIndex] placeholder:self.sPlaceImageName completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-        //
-    }];
+    [_leftImageView cbd_setImageWithURL:_imageLinkURL[leftImageIndex] placeholder:self.sPlaceImageName completion:nil];
+    [_centerImageView cbd_setImageWithURL:_imageLinkURL[centerImageIndex] placeholder:self.sPlaceImageName completion:nil];
+    [_rightImageView cbd_setImageWithURL:_imageLinkURL[rightImageIndex] placeholder:self.sPlaceImageName completion:nil];
     _pageControl.currentPage = centerImageIndex;
     
     self.contentOffset = CGPointMake(kAdViewWidth, 0);
@@ -249,7 +236,6 @@
  */
 -(void)tap
 {
-    NSLog(@"11");
     if(self.addelegate&&[self.addelegate respondsToSelector:@selector(AdCycleScrollViewClick:)])
     {
         [self.addelegate AdCycleScrollViewClick:centerImageIndex];

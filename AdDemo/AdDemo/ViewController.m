@@ -34,7 +34,7 @@
 
 
 -(void)AdCycleScrollViewClick:(NSInteger)index{
-    
+    NSLog(@"%d",index);
 }
 
 -(void)AdCycleScrollViewScroll:(NSInteger)index{
