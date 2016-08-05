@@ -10,9 +10,6 @@
 #import "UIImageView+CBDWebImage.h"
 
 #define SCREEN_WIDTH  [[UIScreen mainScreen] applicationFrame].size.width
-#define SCREEN_HEIGHT [[UIScreen mainScreen] applicationFrame].size.height
-//广告的宽度
-#define kAdViewWidth  self.bounds.size.width
 //广告的高度
 #define kAdViewHeight  self.bounds.size.height
 
@@ -57,6 +54,7 @@
 }
 
 -(void)initCreateView{
+    self.bounces=NO;
     self.delegate = self;
     self.pagingEnabled = YES;
     self.showsVerticalScrollIndicator = NO;
@@ -146,9 +144,13 @@
 #pragma mark - 计时器到时,系统滚动图片
 - (void)animalMoveImage:(NSTimer *)time
 {
-    [self setContentOffset:CGPointMake(kAdViewWidth * 2, 0) animated:YES];
+    if(self.imageLinkURL.count<=1)
+    {
+        return;
+    }
+    [self setContentOffset:CGPointMake(SCREEN_WIDTH * 2, 0) animated:YES];
     isTimeUp = YES;
-    [NSTimer scheduledTimerWithTimeInterval:0.4f target:self selector:@selector(scrollViewDidScroll:) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(scrollViewDidScroll:) userInfo:nil repeats:NO];
 }
 
 #pragma mark - 图片停止时,调用该函数使得滚动视图复用
@@ -174,10 +176,12 @@
         }
         if(self.addelegate&&[self.addelegate respondsToSelector:@selector(AdCycleScrollViewScroll:)])
         {
-            [self.addelegate AdCycleScrollViewScroll:centerImageIndex];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.addelegate AdCycleScrollViewScroll:centerImageIndex];
+            });
         }
     }
-    else if(self.contentOffset.x >= kAdViewWidth * 2)
+    else if(self.contentOffset.x >= SCREEN_WIDTH * 2)
     {
         centerImageIndex = centerImageIndex + 1;
         leftImageIndex = leftImageIndex + 1;
@@ -196,7 +200,9 @@
         }
         if(self.addelegate&&[self.addelegate respondsToSelector:@selector(AdCycleScrollViewScroll:)])
         {
-            [self.addelegate AdCycleScrollViewScroll:centerImageIndex];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.addelegate AdCycleScrollViewScroll:centerImageIndex];
+            });
         }
     }
     else
@@ -204,13 +210,12 @@
         return;
     }
     
-    //换成YY
-    [_leftImageView cbd_setImageWithURL:_imageLinkURL[leftImageIndex] placeholder:self.sPlaceImageName completion:nil];
-    [_centerImageView cbd_setImageWithURL:_imageLinkURL[centerImageIndex] placeholder:self.sPlaceImageName completion:nil];
-    [_rightImageView cbd_setImageWithURL:_imageLinkURL[rightImageIndex] placeholder:self.sPlaceImageName completion:nil];
+    [_leftImageView cbd_setImageWithURL:_imageLinkURL[leftImageIndex] placeholder:self.sPlaceImageName.length>0?self.sPlaceImageName:@"" completion:nil];
+    [_centerImageView cbd_setImageWithURL:_imageLinkURL[centerImageIndex] placeholder:self.sPlaceImageName>0?self.sPlaceImageName:@"" completion:nil];
+    [_rightImageView cbd_setImageWithURL:_imageLinkURL[rightImageIndex] placeholder:self.sPlaceImageName>0?self.sPlaceImageName:@"" completion:nil];
     _pageControl.currentPage = centerImageIndex;
     
-    self.contentOffset = CGPointMake(kAdViewWidth, 0);
+    self.contentOffset = CGPointMake(SCREEN_WIDTH, 0);
     
     //手动控制图片滚动应该取消那个三秒的计时器
     if (!isTimeUp) {
